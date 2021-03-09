@@ -25,7 +25,7 @@ public class ArticleDTO {
     private List<String> stockItemsRef;
     @SheetsMapping
     private Integer replenishmentThreshold;
-    @SheetsMapping(dataType = Integer.class)
+    @SheetsMapping
     private List<Integer> integerList;
 
     public String getSku() {
