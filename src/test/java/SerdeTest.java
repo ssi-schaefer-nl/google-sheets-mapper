@@ -1,17 +1,11 @@
 import nl.ssi.googlesheetsmapper.serde.SheetsDeserializer;
 import nl.ssi.googlesheetsmapper.serde.SheetsSerializer;
-import nl.ssi.googlesheetsmapper.serde.Utils;
 import nl.ssi.googlesheetsmapper.serde.exceptions.ClassInstatiationException;
 import nl.ssi.googlesheetsmapper.serde.exceptions.NoAnnotatedFieldsException;
-import nl.ssi.googlesheetsmapper.serde.exceptions.NoMappedFieldsFoundException;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,7 +28,7 @@ class SerdeTest {
         try {
             List<Object> serializedResult = serializer.serialize(testHeader, articleDTO);
             serializedResult.forEach(field -> System.out.println(field.getClass() + " : " + field));
-        } catch (NoAnnotatedFieldsException | NoMappedFieldsFoundException e) {
+        } catch (NoAnnotatedFieldsException e) {
             e.printStackTrace();
         }
     }

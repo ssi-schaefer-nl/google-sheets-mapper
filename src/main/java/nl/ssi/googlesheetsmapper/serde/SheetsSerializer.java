@@ -1,33 +1,25 @@
 package nl.ssi.googlesheetsmapper.serde;
 
 import nl.ssi.googlesheetsmapper.serde.exceptions.NoAnnotatedFieldsException;
-import nl.ssi.googlesheetsmapper.serde.exceptions.NoMappedFieldsFoundException;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SheetsSerializer {
-    public List<Object> serialize(List<String> headers, Object object) throws NoAnnotatedFieldsException, NoMappedFieldsFoundException {
+    public List<Object> serialize(List<String> headers, Object object) throws NoAnnotatedFieldsException {
         List<Field> annotatedFields = Utils.getAnnotatedFields(object);
         return getOrderedDataFromFields(headers, annotatedFields, object);
     }
 
-    private List<Object> getOrderedDataFromFields(List<String> headers, List<Field> annotatedFields, Object object) throws NoMappedFieldsFoundException {
+    private List<Object> getOrderedDataFromFields(List<String> headers, List<Field> annotatedFields, Object object) {
         Map<String, Field> fieldNameToField = Utils.mapFieldNameToField(annotatedFields);
-        List<Object> orderedFields = headers.stream()
+        return headers.stream()
                 .map(Utils::normalizeName)
-                .map(headerName -> getDataFromField(object, fieldNameToField.get(headerName)).orElse(null))
-                .filter(Objects::nonNull)
+                .map(headerName -> getDataFromField(object, fieldNameToField.get(headerName)).orElse(""))
                 .collect(Collectors.toList());
-
-        if (orderedFields.isEmpty()) {
-            throw new NoMappedFieldsFoundException("No mapped fields for object of type " + object.getClass().getSimpleName());
-        }
-        return orderedFields;
     }
 
 
