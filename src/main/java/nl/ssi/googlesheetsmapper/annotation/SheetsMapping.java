@@ -9,6 +9,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SheetsMapping {
     String name() default "";
-    Class<?> dataType() default String.class;
-
 }
