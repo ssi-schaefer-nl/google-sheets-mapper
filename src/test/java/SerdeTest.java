@@ -19,7 +19,6 @@ class SerdeTest {
         SheetsSerializer serializer = new SheetsSerializer();
         ArticleDTO articleDTO = new ArticleDTO()
                 .setSku("1")
-                .setStatus("status")
                 .setTotalAvailableStockCount(5)
                 .setDescription("description")
                 .setBarcode("1")
@@ -28,6 +27,7 @@ class SerdeTest {
         try {
             List<Object> serializedResult = serializer.serialize(testHeader, articleDTO);
             serializedResult.forEach(field -> System.out.println(field.getClass() + " : " + field));
+            System.out.println(serializedResult);
         } catch (NoAnnotatedFieldsException e) {
             e.printStackTrace();
         }
